@@ -61,6 +61,10 @@ class FriendsWatcher implements WorkerInterface
 		}
 	}
 
+	/**
+	 * Получаем подписчиков
+	 * @return stdClass
+	 */
 	private function getFollowers()
 	{
 		$response = Request::VK(QueryBuilder::buildURL('users.getFollowers', ['access_token' => $this->account->access_token, 'user_id' => $this->account->user_id, 'count' => 1000]), $this->account->captcha);
@@ -68,6 +72,11 @@ class FriendsWatcher implements WorkerInterface
 		return $response->response;
 	}
 
+	/**
+	 * Добавляем в друзья
+	 * @param int $id
+	 * @return stdClass
+	 */
 	private function addFriend($id)
 	{
 		$response = Request::VK(QueryBuilder::buildURL('friends.add', ['access_token' => $this->account->access_token, 'user_id' => $id]), $this->account->captcha);
